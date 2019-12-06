@@ -1,0 +1,179 @@
+<div class="kt-portlet"
+	[ngClass]="{ 'kt-portlet--body-progress kt-portlet--body-progress-overlay' : viewLoading }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="kt-portlet__head-label">
+			<h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+		</div>
+	</div>
+	<form class="kt-form" [formGroup]="customerForm">
+		<div class="kt-portlet__body">
+
+			<div class="kt-portlet__body-progress">
+				<mat-spinner [diameter]="20"></mat-spinner>
+			</div>
+
+			<kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
+				Oh snap! Change a few things up and try submitting again.
+			</kt-alert>
+
+			<div class="form-group kt-form__group row">
+				<div class="col-lg-4 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="姓名" formControlName="firstName" />
+						<mat-error>Name is
+							<strong>required</strong>
+						</mat-error>
+						<mat-hint align="start">Please enter
+							<strong>Name</strong>
+						</mat-hint>
+					</mat-form-field>
+				</div>
+				<div class="col-lg-4 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="工号" formControlName="lastName" />
+						<mat-error>No. is
+							<strong>required</strong>
+						</mat-error>
+						<mat-hint align="start">Please enter
+							<strong>No.</strong>
+						</mat-hint>
+					</mat-form-field>
+				</div>
+				<div class="col-lg-4 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input type="mobile" matInput placeholder="手机号" formControlName="email" />
+						<mat-error>Phone
+							<strong>required</strong>
+						</mat-error>
+						<mat-hint align="start">Please enter
+							<strong>Phone</strong>
+						</mat-hint>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="form-group kt-form__group row">
+<!--				<div class="col-lg-4 kt-margin-bottom-20-mobile">-->
+<!--					<mat-form-field class="mat-form-field-fluid">-->
+<!--						<input matInput placeholder="Enter Login" formControlName="userName" />-->
+<!--						<mat-error>Login is-->
+<!--							<strong>required</strong>-->
+<!--						</mat-error>-->
+<!--						<mat-hint align="start">Please enter-->
+<!--							<strong>Login</strong>-->
+<!--						</mat-hint>-->
+<!--					</mat-form-field>-->
+<!--				</div>-->
+				<div class="col-lg-4 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput [matDatepicker]="picker"
+							placeholder="Choose a Date of Birth"
+							formControlName="dob" />
+						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+						<mat-hint align="start">Please enter
+							<strong>Date of Birth</strong> in 'mm/dd/yyyy' format</mat-hint>
+					</mat-form-field>
+				</div>
+				<div class="col-lg-4 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input type="email" matInput placeholder="Enter IP Address" formControlName="ipAddress" />
+						<mat-error>IP Address
+							<strong>required</strong>
+						</mat-error>
+						<mat-hint align="start">We'll never share customer
+							<strong>IP Address</strong> with anyone else</mat-hint>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="form-group kt-form__group row">
+				<div class="col-lg-4 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select placeholder="Gender" formControlName="gender">
+							<mat-option value="Female">Female</mat-option>
+							<mat-option value="Male">Male</mat-option>
+						</mat-select>
+						<mat-hint align="start">
+							<strong>Gender</strong>
+						</mat-hint>
+					</mat-form-field>
+				</div>
+				<div class="col-lg-4 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select placeholder="Type" formControlName="type">
+							<mat-option value="0">Business</mat-option>
+							<mat-option value="1">Individual</mat-option>
+						</mat-select>
+						<mat-hint align="start">
+							<strong>Account Type</strong>
+						</mat-hint>
+					</mat-form-field>
+				</div>
+
+				<div class="col-lg-4 kt-margin-bottom-20-mobile">
+
+					<div class="kt-avatar kt-avatar--outline" id="kt_user_avatar_1">
+						<div class="kt-avatar__holder" style="background-image: url(assets/media/users/100_1.jpg)"></div>
+						<label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
+							<i class="fa fa-pen"></i>
+							<input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
+						</label>
+						<span class="kt-avatar__cancel" data-toggle="kt-tooltip" title="" data-original-title="Cancel avatar">
+                    <i class="fa fa-times"></i></span>
+					</div>
+					<span class="form-text text-muted">Allowed file types:  png, jpg, jpeg.</span>
+
+				</div>
+
+
+			</div>
+		</div>
+		<div class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit">
+			<div class="kt-form__actions kt-form__actions--solid">
+				<div class="row text-right">
+					<div class="col-lg-12">
+						<button type="button" mat-raised-button [mat-dialog-close]="data.animal" cdkFocusInitial matTooltip="Cancel changes">
+							Cancel
+						</button>&nbsp;
+						<button type="button" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="viewLoading" matTooltip="Save changes">
+							Save
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<script>
+	var KTAppOptions = {
+		"colors": {
+			"state": {
+				"brand": "#591df1",
+				"light": "#ffffff",
+				"dark": "#282a3c",
+				"primary": "#5867dd",
+				"success": "#34bfa3",
+				"info": "#36a3f7",
+				"warning": "#ffb822",
+				"danger": "#fd3995"
+			},
+			"base": {
+				"label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
+				"shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"]
+			}
+		}
+	};
+</script>
+<!-- end::Global Config -->
+
+<!--begin::Global Theme Bundle(used by all pages) -->
+<script src="plugins.bundle.js" type="text/javascript"></script>
+<script src="scripts.bundle.js" type="text/javascript"></script>
+<!--end::Global Theme Bundle -->
+
+
+<!--begin::Page Scripts(used by this page) -->
+<script src="ktavatar.js" type="text/javascript"></script>
