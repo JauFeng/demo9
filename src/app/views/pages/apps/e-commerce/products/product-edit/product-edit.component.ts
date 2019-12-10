@@ -413,14 +413,17 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 	}
 
 	onFileChange($event) {
+		const controls = this.productForm.controls;
+		const id = this.product.id;
+
 		const file = ($event.target as HTMLInputElement).files[0];
 
-		this.productService.uploadFile(1, file).subscribe(res => {
+		this.productService.uploadFile(id, file).subscribe(res => {
 			console.log('fuck: ' + res);
 			if (true === res) {
-				this.layoutUtilsService.showActionNotification('success', MessageType.Update, 10000, true, true);
+				this.layoutUtilsService.showActionNotification('success', MessageType.Update, 0, true, true);
 			} else {
-				this.layoutUtilsService.showActionNotification('failed', MessageType.Update, 10000, true, true);
+				this.layoutUtilsService.showActionNotification('failed', MessageType.Update, 0, true, true);
 			}
 		});
 	}
