@@ -42,6 +42,7 @@ const AVAILABLE_MANUFACTURES: string[] =
 })
 export class ProductEditComponent implements OnInit, OnDestroy {
 	// Public properties
+	avatar = 'http://dev-heilink.oss-cn-hangzhou.aliyuncs.com/avatar/1/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191119101458.jpg?Expires=1576060198&OSSAccessKeyId=LTAIZSlZJq6zkMzd&Signature=TVRolE%2ByNKuHTpMQxB4Fz6Mmqao%3D';
 	product: ProductModel;
 	productId$: Observable<number>;
 	oldProduct: ProductModel;
@@ -419,11 +420,10 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 		const file = ($event.target as HTMLInputElement).files[0];
 
 		this.productService.uploadFile(id, file).subscribe(res => {
-			console.log('fuck: ' + res);
 			if (true === res) {
-				this.layoutUtilsService.showActionNotification('success', MessageType.Update, 0, true, true);
+				alert('success');
 			} else {
-				this.layoutUtilsService.showActionNotification('failed', MessageType.Update, 0, true, true);
+				alert('failed');
 			}
 		});
 	}
