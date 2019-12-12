@@ -25,6 +25,7 @@ import {
 	ProductUpdated,
 	ProductsService
 } from '../../../../../../core/e-commerce';
+import {DomSanitizer} from '@angular/platform-browser';
 
 const AVAILABLE_COLORS: string[] =
 	['Red', 'CadetBlue', 'Gold', 'LightSlateGrey', 'RoyalBlue', 'Crimson', 'Blue', 'Sienna', 'Indigo', 'Green', 'Violet',
@@ -42,7 +43,8 @@ const AVAILABLE_MANUFACTURES: string[] =
 })
 export class ProductEditComponent implements OnInit, OnDestroy {
 	// Public properties
-	avatar = 'http://dev-heilink.oss-cn-hangzhou.aliyuncs.com/avatar/1/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191119101458.jpg?Expires=1576060198&OSSAccessKeyId=LTAIZSlZJq6zkMzd&Signature=TVRolE%2ByNKuHTpMQxB4Fz6Mmqao%3D';
+	avatar = 'http://dev-heilink.oss-cn-hangzhou.aliyuncs.com/avatar/1/47b97fd79077934baf1cc54aaa443767542.jpg?Expires=1576126498&OSSAccessKeyId=LTAIZSlZJq6zkMzd&Signature=CpA3qdzJfFFS92pkwowfA2Otlu8%3D';
+	// avatar = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev-heilink.oss-cn-hangzhou.aliyuncs.com/avatar/1/47b97fd79077934baf1cc54aaa443767542.jpg?Expires=1576126498&OSSAccessKeyId=LTAIZSlZJq6zkMzd&Signature=CpA3qdzJfFFS92pkwowfA2Otlu8%3D');
 	product: ProductModel;
 	productId$: Observable<number>;
 	oldProduct: ProductModel;
@@ -77,6 +79,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 	 * @param cdr: ChangeDetectorRef
 	 */
 	constructor(
+		private sanitizer: DomSanitizer,
 		private store: Store<AppState>,
 		private activatedRoute: ActivatedRoute,
 		private router: Router,
@@ -116,6 +119,9 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 					}
 
 					this.loadProduct(result);
+
+
+					// this.avatar =
 				});
 			} else {
 				const newProduct = new ProductModel();
@@ -414,7 +420,6 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 	}
 
 	onFileChange($event) {
-		const controls = this.productForm.controls;
 		const id = this.product.id;
 
 		const file = ($event.target as HTMLInputElement).files[0];
@@ -422,8 +427,10 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 		this.productService.uploadFile(id, file).subscribe(res => {
 			if (true === res) {
 				alert('success');
+				location.reload();
 			} else {
 				alert('failed');
+				location.reload();
 			}
 		});
 	}
