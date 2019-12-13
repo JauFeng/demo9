@@ -10,8 +10,8 @@ import { ProductModel } from '../_models/product.model';
 import {FormControl} from '@angular/forms';
 
 // const API_PRODUCTS_URL = 'api/products';
-const API_PRODUCTS_URL = 'http://localhost:9000/demo/user';
-const API_FILE_URL = 'http://localhost:9000/demo/user/file';
+const API_PRODUCTS_URL = 'http://47.96.82.143:9000/demo/user';
+const API_FILE_URL = 'http://47.96.82.143:9000/demo/user/file';
 // Real REST API
 @Injectable()
 export class ProductsService {
