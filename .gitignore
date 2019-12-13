@@ -51,4 +51,4 @@ Thumbs.db
 yarn-error.log
 
 # Project exclude paths
-/src/assets/
+#/src/assets/
